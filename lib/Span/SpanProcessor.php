@@ -176,7 +176,7 @@ final class SpanProcessor
             // the link may have a new line in it so we need to strip it
             // before setting the link and adding a token to be replaced
             $link = str_replace("\n", ' ', $link);
-            $link = (string) preg_replace('/\s+/', ' ', $link);
+            $link = (string) preg_replace('/\s+/u', ' ', $link);
 
             // we need to maintain the characters before and after the link
             $prev = $match[1]; // previous character before the link
@@ -233,7 +233,7 @@ final class SpanProcessor
         // "Liberal Regex Pattern for all URLs", https://gist.github.com/gruber/249502
         $absoluteUriPattern = '#(?i)\b((?:[a-z][\w\-+.]+:(?:/{1,3}|[a-z0-9%]))('
             . '?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>'
-            . ']+|(\([^\s()<>]+\)))*\)|[^\s\`!()\[\]{};:\'".,<>?«»“”‘’]))#';
+            . ']+|(\([^\s()<>]+\)))*\)|[^\s\`!()\[\]{};:\'".,<>?«»“”‘’]))#u';
 
         // Standalone hyperlink callback
         $standaloneHyperlinkCallback = function ($match, $scheme = ''): string {
@@ -265,7 +265,7 @@ final class SpanProcessor
             . '\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2'
             . '[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0'
             . 'b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f'
-            . '])+)\]))/msi';
+            . '])+)\]))/msiu';
 
         $standaloneEmailAddressCallback = function (array $match): string {
             $id  = $this->generateId();
